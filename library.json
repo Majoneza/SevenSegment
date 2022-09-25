@@ -1,0 +1,19 @@
+{
+    "name": "SevenSegment",
+    "keywords": "seven segment display, digit display",
+    "description": "Library enables simple communication with seven segment display without RAM overhead.",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Majoneza/SevenSegment.git"
+    },
+    "version": "1.0.0",
+    "authors": {
+        "name": "Majoneza"
+    },
+    "license": "MIT",
+    "frameworks": ["arduino"],
+    "platforms": ["atmelavr"],
+    "build": {
+        "libArchive": false
+    }
+}
