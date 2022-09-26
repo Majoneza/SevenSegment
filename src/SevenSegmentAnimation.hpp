@@ -1,6 +1,6 @@
 #pragma once
 
-#include "SevenSegmentCore.hpp"
+#include "SevenSegmentSegments.hpp"
 
 namespace SevenSegment
 {
@@ -9,7 +9,7 @@ namespace SevenSegment
      * 
      * @tparam v Animation frames
      */
-    template <uint32_t... v>
+    template <Segment... v>
     class Animation
     {
     public:
@@ -20,13 +20,13 @@ namespace SevenSegment
         constexpr Animation() = default;
     };
 
-    template <size_t p, uint32_t ms, uint32_t... v>
+    template <size_t p, Segment ms, Segment... v>
     struct AnimationLoop
     {
         using type = typename AnimationLoop<p - 1, ms, v..., ms, v...>::type;
     };
 
-    template <uint32_t ms, uint32_t... v>
+    template <Segment ms, Segment... v>
     struct AnimationLoop<0, ms, v...>
     {
         using type = Animation<v...>;
@@ -39,7 +39,7 @@ namespace SevenSegment
      * @tparam ms Time to wait between loops (in miliseconds)
      * @tparam v Frames to loop
      */
-    template <size_t p, uint32_t ms, uint32_t... v>
+    template <size_t p, Segment ms, Segment... v>
     using AnimationLoop_t = typename AnimationLoop<p, ms, v...>::type;
 
     /**
@@ -51,7 +51,7 @@ namespace SevenSegment
      * @param animation Animation to loop
      * @return Looped Animation
      */
-    template <size_t p, uint32_t ms, uint32_t... v>
+    template <size_t p, Segment ms, Segment... v>
     constexpr AnimationLoop_t<p, ms, v...> loopAnimation(Animation<v...> animation)
     {
         (void)animation;

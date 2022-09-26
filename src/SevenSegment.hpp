@@ -1,5 +1,5 @@
 #pragma once
 
-#include "SevenSegmentCore.hpp"
+#include "SevenSegmentSegments.hpp"
 #include "SevenSegmentDisplay.hpp"
 #include "SevenSegmentAnimation.hpp"

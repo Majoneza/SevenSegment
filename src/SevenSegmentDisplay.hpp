@@ -1,10 +1,12 @@
 #pragma once
 
-#include "SevenSegmentCore.hpp"
+#include "SevenSegmentSegments.hpp"
 #include "SevenSegmentAnimation.hpp"
 
 namespace SevenSegment
 {
+    using Pin = uint8_t;
+
     /**
      * @brief Class representing SevenSegment display
      * 
@@ -28,6 +30,22 @@ namespace SevenSegment
     class Display
     {
     protected:
+        using State = uint8_t;
+
+        /**
+         * @brief Functions for specified operation (change them based on platform/framework)
+         * 
+         */
+        static constexpr auto writePinFunction = digitalWrite;
+        static constexpr auto delayFunction = delay;
+        
+        /**
+         * @brief Display pin states (change them based on platform/framework)
+         * 
+         */
+        static constexpr State HIGH_S = HIGH;
+        static constexpr State LOW_S = LOW;
+
         template <State topPinVal,
                   State topLeftPinVal,
                   State topRightPinVal,
@@ -48,7 +66,7 @@ namespace SevenSegment
             writePinFunction(dotPin, dotPinVal);
         }
 
-        template <uint32_t val, uint32_t... v>
+        template <Segment val, Segment... v>
         static void animationFrame()
         {
             activatePins<
@@ -64,7 +82,7 @@ namespace SevenSegment
                 animationDelay<v...>();
         }
 
-        template <uint32_t val, uint32_t... v>
+        template <Segment val, Segment... v>
         static void animationDelay()
         {
             if constexpr (val != 0)
@@ -191,7 +209,7 @@ namespace SevenSegment
          * 
          * @tparam v Frames to display
          */
-        template <uint32_t... v>
+        template <Segment... v>
         static void displayAnimation()
         {
             animationFrame<v...>();
@@ -203,7 +221,7 @@ namespace SevenSegment
          * @tparam v Frames to display
          * @param animation Animation to display
          */
-        template <uint32_t... v>
+        template <Segment... v>
         static void displayAnimation(Animation<v...> animation)
         {
             (void)animation;
